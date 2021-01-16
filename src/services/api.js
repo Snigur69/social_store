@@ -25,3 +25,11 @@ export const getProductById = async (id) => {
         throw error;
     }
 }
+
+export const editProductById = async (product, id) => {
+    return await firebase.database().ref(id).update(product).then(function(){
+        return 200;
+    }).catch(function(error) {
+        throw error;
+    });
+}

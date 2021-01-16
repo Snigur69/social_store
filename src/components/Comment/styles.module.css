@@ -8,10 +8,17 @@
     font-style: italic;
     font-weight: bold;
     margin-top: 0;
+    margin-bottom: 0px;
 }
 .comment_content {
     margin-top: 0;
 }
 .comment_inputs {
     text-align: left;
+}
+.date {
+    margin-top: 0;
+    color: grey;
+    font-style: italic;
+    font-size: 12px;
 }

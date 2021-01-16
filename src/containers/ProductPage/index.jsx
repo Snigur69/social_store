@@ -12,16 +12,20 @@ import likeImg from '../../assets/img/like.png';
 import dislikeImg from '../../assets/img/disike.png';
 
 import {useSelector} from 'react-redux';
-import {getProductById} from "../../services/api";
+import {getProductById, editProductById} from "../../services/api";
 import {useHistory} from "react-router";
-import {getLikesByString} from './helper';
+import {getLikesByString, addIdToString, removeIdFromString, formatDate} from './helper';
 
 const ProductPage = (props) => {
     const user = useSelector(state => state.user);
     const history = useHistory();
 
     const [product, setProduct] = useState(null);
+    const [comments, setComments] = useState([]);
 
+    const [comment, setComment] = useState('');
+    // const [likesList, setLikesList] = useState('');
+    // const [dislikesList, setDislikesList] = useState('');
     const [like, setLike] = useState(0);
     const [dislike, setDislike] = useState(0);
     const [isLiked, setIsLiked] = useState(false);
@@ -30,27 +34,67 @@ const ProductPage = (props) => {
     useEffect(() => {
         getProductById(history.location.pathname.slice(1)).then((response) => {
             setProduct(response);
+            if(response.comments) {
+                setComments(JSON.parse(response.comments))
+            }
             if(user) {
+                // setLikesList(response.likes);
                 setLike(getLikesByString(response.likes, user.user.uid)[0]);
                 setIsLiked(getLikesByString(response.likes, user.user.uid)[1]);
+                // setDislikesList(response.dislikes);
+                setDislike(getLikesByString(response.dislikes, user.user.uid)[0]);
+                setIsDisliked(getLikesByString(response.dislikes, user.user.uid)[1]);
             } else {
-                console.log(getLikesByString(response.likes)[0])
+                // setLikesList(response.likes);
                 setLike(getLikesByString(response.likes)[0]);
                 setIsLiked(getLikesByString(response.likes)[1]);
+                // setDislikesList(response.dislikes);
+                setDislike(getLikesByString(response.dislikes)[0]);
+                setIsDisliked(getLikesByString(response.dislikes)[1]);
             }
-
         }).catch((error) => {
             throw new Error(error);
         })
-    }, [])
+    }, [isLiked, isDisliked])
 
     const toggleLike = () => {
-
-        setLike(Number(!like));
+        if (isLiked) {
+            let likes = removeIdFromString(user.user.uid, product.likes);
+            editProductById({likes}, history.location.pathname.slice(1));
+        } else {
+            let likes = addIdToString(user.user.uid, product.likes);
+            editProductById({likes}, history.location.pathname.slice(1));
+        }
+        setIsLiked(!isLiked);
     }
 
     const toggleDislike = () => {
-        setDislike(Number(!dislike));
+        if (isDisliked) {
+            let dislikes = removeIdFromString(user.user.uid, product.dislikes);
+            editProductById({dislikes}, history.location.pathname.slice(1));
+        } else {
+            let dislikes = addIdToString(user.user.uid, product.dislikes);
+            editProductById({dislikes}, history.location.pathname.slice(1));
+        }
+        setIsDisliked(!isDisliked);
+    }
+
+    const commentHandleChangle = (e) => {
+        setComment(e.target.value);
+    }
+
+    const addComment = () => {
+        let now = new Date();
+        let singleComment = {
+            id: `comment_${+now}`,
+            authorId: user.user.uid,
+            author: 'Anton',
+            comment: comment, 
+            date: formatDate(now)
+        }
+        let commentsList = [singleComment];
+        editProductById({comments: JSON.stringify(commentsList)}, history.location.pathname.slice(1));
+        // console.log(JSON.stringify(commentsList));
     }
 
     return product && (
@@ -84,14 +128,22 @@ const ProductPage = (props) => {
                 </div>
             </div>
             <div className={styles.comments}>
-                <div className={styles.comments_list}>
-                    <Comment author={'admin'} content={'Test comment! 100% '} />
-                    <Comment author={'admin'} content={'Test comment! 100% '} />
-                </div>
+                {
+                    comments.length ? (
+                        <div className={styles.comments_list}>
+                            {comments.map((el, index) => {
+                                return <Comment key={index} comment={el} />
+                            })}
+                        </div>
+                    ) : (
+                        <></>
+                    )
+                }
+                
                 {user && (
                 <div className={styles.comment_inputs}>
-                    <textarea name="" id="" cols="30" rows="10"></textarea>
-                    <Button variant="contained" color="primary">Send</Button>
+                    <textarea onChange={commentHandleChangle} value={comment} name="" id="" cols="30" rows="10"></textarea>
+                    <Button onClick={addComment} variant="contained" color="primary">Send</Button>
                 </div>
                 )}
                
