@@ -1,0 +1,63 @@
+.wrap {
+    text-align: center;
+    max-width: 1170px;
+    padding: 0 15px;
+    margin: 120px auto;
+}
+.product_wrap {
+    display: flex;
+}
+.image_wrap {
+    width: 40%;
+}
+.image_wrap img {
+    width: 100%;
+}
+.price {
+    font-weight: bold;
+    font-style: italic;
+    color: green;
+}
+.product_info_wrap {
+    width: 60%;
+}
+.likes_wrap {
+    display: flex;
+    margin: 15px 0;
+    width: 100%;
+    justify-content: space-around;
+    max-width: 150px;
+}
+.likes_wrap > div {
+    display: flex;
+}
+.likes {
+    font-weight: bold;
+    color: green;
+}
+.dislikes {
+    font-weight: bold;
+    color: red;
+}
+.likes_wrap > div button {
+    background: none;
+    border: none;
+    outline: none !important;
+    cursor: pointer;
+}
+
+.likes_wrap > div button svg {
+    font-size: 20px;
+    color: grey;
+}
+.likes_wrap > div.likes button.true svg {
+    color: green;
+}
+.likes_wrap > div.dislikes button.true svg {
+    color: red;
+}
+.comment_inputs textarea {
+    width: 100%;
+    display: block;
+    height: 100px;
+}

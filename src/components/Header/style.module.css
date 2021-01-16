@@ -1,0 +1,16 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    background: #FFF;
+    border-bottom: 2px solid #000;
+}
+.header a {
+    font-weight: bold;
+    margin: 0 100px;
+}

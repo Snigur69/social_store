@@ -1,0 +1,9 @@
+.catalog {
+    text-align: center;
+    max-width: 1170px;
+    padding: 0 15px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 60px auto;
+    justify-content: space-between;
+}

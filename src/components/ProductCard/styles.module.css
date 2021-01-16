@@ -1,0 +1,11 @@
+.title {
+    font-weight: bold;
+}
+.product_card {
+    padding: 15px;
+    border: 1px solid grey;
+    margin-bottom: 20px;
+}
+.product_card img {
+    width: 100%;
+}

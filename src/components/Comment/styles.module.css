@@ -1,0 +1,17 @@
+.comment {
+    border: 1px solid grey;
+    margin: 15px 0;
+    padding: 15px;
+    text-align: left;
+}
+.author {
+    font-style: italic;
+    font-weight: bold;
+    margin-top: 0;
+}
+.comment_content {
+    margin-top: 0;
+}
+.comment_inputs {
+    text-align: left;
+}

@@ -1,0 +1,27 @@
+.category_link {
+    width: 30%;
+    text-decoration: none !important;
+}
+.category {
+    box-shadow: 0px 2px 10px rgba(91, 91, 91, 0.25);
+    padding: 15px;
+    margin: 15px 0;
+}
+.image_wrap {
+    height: 275px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.image_wrap > img {
+    /*width: 100%;*/
+    max-width: 100%;
+    height: 92%;
+}
+.title {
+    font-weight: bold;
+    font-size: 20px;
+    font-style: italic;
+    margin: 10px 0;
+    color: #000;
+}
